@@ -1,10 +1,16 @@
 import NavBar from "../Components/Navbar/index";
+import Filter from "../Components/Filter";
+import "./blogPage.css";
 
 const BlogPage = () => {
   return (
-    <div>
+    <header>
       <NavBar />
-    </div>
+      <div className="headingComponent">
+        <h2>Articles</h2>
+      </div>
+      <Filter />
+    </header>
   );
 };
 

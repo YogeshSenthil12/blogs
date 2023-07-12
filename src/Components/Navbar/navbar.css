@@ -11,6 +11,7 @@
 }
 .navbarLogo {
   display: flex;
+  cursor: pointer;
 }
 .navBarProfile {
   display: flex;
@@ -20,6 +21,7 @@
   border-radius: 8px;
   background: #dbf6ff;
   align-items: center;
+  cursor: pointer;
 }
 .profileName {
   display: flex;
