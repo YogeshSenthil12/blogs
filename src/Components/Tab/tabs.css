@@ -1,0 +1,64 @@
+.newArticle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: var(--linear, linear-gradient(138deg, #01c0fc 0%, #00b1fd 100%));
+  padding: 8px 16px;
+}
+.ant-tabs-top > .ant-tabs-nav {
+  margin: 0px;
+}
+.newArticle img {
+  display: flex;
+  align-items: center;
+}
+.newArticle p {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0px;
+  cursor: pointer;
+}
+.addArticle {
+  width: 100%;
+}
+.tabSection {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 10px 0px 0px;
+}
+.ant-tabs .ant-tabs-tab {
+  padding-top: 4px;
+  padding-bottom: 11px;
+}
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #0a0226;
+  font-size: 16px;
+  font-weight: 600;
+}
+.ant-tabs .ant-tabs-tab-btn {
+  color: #27185d;
+  font-size: 16px;
+  font-weight: 400;
+}
+.editNumber {
+  border-radius: 40px;
+  background: var(--linear, linear-gradient(138deg, #01c0fc 0%, #00b1fd 100%));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 8px;
+  padding: 2px 7px 2px 5px;
+}
+.editNumbers {
+  background: #dbf6ff;
+  border-radius: 40px;
+  font-size: 14px;
+  color: #6993a3;
+  font-weight: 500;
+  margin-left: 8px;
+  padding: 2px 7px 2px 5px;
+}

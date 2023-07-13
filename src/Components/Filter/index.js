@@ -1,8 +1,7 @@
 import "./filter.css";
 import "react-datepicker/dist/react-datepicker.css";
-import {DatePicker, Select, Space} from "antd";
-import downArrow from "../../assets/images/downArrow.svg";
-import Multiselect from "multiselect-react-dropdown";
+import {DatePicker, Select} from "antd";
+import Tab from "../Tab";
 
 const {RangePicker} = DatePicker;
 const dateFormat = "DD/MM/YYYY";

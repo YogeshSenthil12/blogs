@@ -1,0 +1,127 @@
+.blogWebsite {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 32px 0px;
+  margin-top: 10px;
+  grid-row-gap: 40px;
+  overflow: auto;
+  height: calc(100vh - 207px);
+}
+.articleBlog {
+  border-radius: 8px;
+  border: 1px solid #ebebeb;
+  background: #fff;
+  max-width: 247px;
+  width: 100%;
+}
+
+.blogImages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+.countryLogo {
+  display: flex;
+  gap: 4px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(125px);
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  align-items: center;
+}
+.countryLogo img {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.cardDescription {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.categorySection {
+  border-radius: 4px;
+  background: #dbf6ff;
+  padding: 4px 8px;
+  max-width: 75px;
+  width: 100%;
+  margin: 0px 0px 16px 0px;
+}
+.categorySection p {
+  color: #0a0226;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+}
+.categoryLength {
+  border-radius: 4px;
+  background: #dbf6ff;
+  padding: 4px 8px;
+  width: 100%;
+  max-width: 35px;
+  margin: 0px 0px 16px 0px;
+}
+.categoryLength p {
+  color: #0a0226;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+}
+.categoryData {
+  display: flex;
+  gap: 12px;
+}
+.blogDescription {
+  color: #808080;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 16px;
+}
+.cardDescription p {
+  color: #0a0226;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.countryLogo p {
+  color: #0a0226;
+  font-size: 12px;
+  font-weight: 600;
+}
+.blogCard {
+  padding: 16px;
+  flex: 1;
+}
+.authorDetails {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.authorDetails p {
+  color: #0a0226;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+.authorData {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.authorData p {
+  color: #0a0226;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}

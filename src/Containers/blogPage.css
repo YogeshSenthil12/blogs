@@ -1,15 +1,33 @@
+.fixDesign {
+  position: fixed;
+  width: 100%;
+}
 .headingComponent {
+  padding: 34px 16px 0px 10px;
+  max-width: 1124px;
+  margin: 0 auto;
+}
+.headingComponent p {
   color: #0a0226;
   font-size: 32px;
   font-weight: 600;
   line-height: 24px;
-  padding: 64px 16px 16px 16px;
-  max-width: 1110px;
+}
+.parentSection {
+  padding: 24px 0px 0px 10px;
+  max-width: 1124px;
   margin: 0 auto;
 }
+.filterTab {
+  display: flex;
+  gap: 24px;
+}
+.article {
+  width: 100%;
+}
 @media only screen and (max-width: 768px) {
-    .headingComponent{
-        font-size: 16px;
-        padding: 16px 0px 16px 16px;
-    }
+  .headingComponent {
+    font-size: 16px;
+    padding: 16px 0px 0px 16px;
+  }
 }
