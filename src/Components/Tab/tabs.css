@@ -5,6 +5,8 @@
   border-radius: 8px;
   background: var(--linear, linear-gradient(138deg, #01c0fc 0%, #00b1fd 100%));
   padding: 8px 16px;
+  cursor: pointer;
+  user-select: none;
 }
 .ant-tabs-top > .ant-tabs-nav {
   margin: 0px;
@@ -12,6 +14,7 @@
 .newArticle img {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .newArticle p {
   color: #fff;
@@ -19,7 +22,6 @@
   font-weight: 600;
   line-height: 24px;
   margin: 0px;
-  cursor: pointer;
 }
 .addArticle {
   width: 100%;
@@ -28,21 +30,44 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 0px 10px 0px 0px;
 }
 .ant-tabs .ant-tabs-tab {
-  padding-top: 4px;
-  padding-bottom: 11px;
+  padding: 12px 24px;
+}
+.ant-tabs .ant-tabs-tab + .ant-tabs-tab {
+  margin: 0px;
+}
+.ant-picker .ant-picker-input > input:placeholder-shown {
+  color: #a5a5a5;
+  font-family: Inter;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+.ant-select-selection-placeholder {
+  color: #a5a5a5;
+  font-family: Inter;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
 }
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #0a0226;
   font-size: 16px;
-  font-weight: 600;
 }
 .ant-tabs .ant-tabs-tab-btn {
   color: #27185d;
   font-size: 16px;
-  font-weight: 400;
+}
+.ant-btn-primary:disabled,
+.ant-btn-primary.ant-btn-disabled {
+  cursor: pointer;
+  border-color: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.ant-btn.ant-btn-sm {
+  height: 29px;
 }
 .editNumber {
   border-radius: 40px;

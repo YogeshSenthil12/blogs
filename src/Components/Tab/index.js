@@ -1,9 +1,25 @@
 import plusIcon from "../../assets/images/plusIcon.svg";
 import {Tabs} from "antd";
+import FormDrawer from "../FormDrawer";
 import "./tabs.css";
+
 import {useState} from "react";
 
-const Tab = () => {
+const Tab = ({addArticle}) => {
+  const [formDrawerOpen, setFormDrawerOpen] = useState(false);
+  const [activeTab, setActivetab] = useState();
+
+  const openFormDrawer = () => {
+    setFormDrawerOpen(true);
+  };
+
+  const closeFormDrawer = () => {
+    setFormDrawerOpen(false);
+  };
+  const handleTabChange = (key) => {
+    setActivetab(key);
+  };
+
   const [items, setItems] = useState([
     {
       key: "1",
@@ -42,10 +58,14 @@ const Tab = () => {
     <>
       <div className="tabSection">
         <div>
-          <Tabs items={items} defaultActiveKey="1" />
+          <Tabs
+            items={items}
+            activeKey={activeTab}
+            onChange={handleTabChange}
+          />
         </div>
 
-        <div className="newArticle">
+        <div className="newArticle" onClick={openFormDrawer}>
           <div>
             <img src={plusIcon} alt="addIcon" />
           </div>
@@ -53,6 +73,11 @@ const Tab = () => {
             <p>Add New Article</p>
           </div>
         </div>
+        <FormDrawer
+          onClose={closeFormDrawer}
+          open={formDrawerOpen}
+          addArticle={addArticle}
+        />
       </div>
     </>
   );

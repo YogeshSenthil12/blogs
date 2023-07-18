@@ -14,8 +14,11 @@
   background: #fff;
   max-width: 247px;
   width: 100%;
+  height: 388px;
 }
-
+.editCard img {
+  cursor: pointer;
+}
 .blogImages {
   width: 100%;
   display: flex;
@@ -53,7 +56,6 @@
   padding: 4px 8px;
   max-width: 75px;
   width: 100%;
-  margin: 0px 0px 16px 0px;
 }
 .categorySection p {
   color: #0a0226;
@@ -68,7 +70,6 @@
   padding: 4px 8px;
   width: 100%;
   max-width: 35px;
-  margin: 0px 0px 16px 0px;
 }
 .categoryLength p {
   color: #0a0226;
@@ -80,19 +81,28 @@
 .categoryData {
   display: flex;
   gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
 }
 .blogDescription {
+  margin-bottom: 16px;
+}
+.blogDescription p {
   color: #808080;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
-  margin-bottom: 16px;
+  text-overflow: ellipsis " [..]";
+  overflow: hidden;
+  width: 198px;
+  height: 60px;
 }
 .cardDescription p {
   color: #0a0226;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+  height: 40px;
 }
 .countryLogo p {
   color: #0a0226;
@@ -124,4 +134,80 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
+}
+.ant-dropdown .ant-dropdown-menu {
+  padding: 0px;
+  list-style-type: none;
+  background-color: #ffffff;
+  border-radius: 8px;
+  outline: none;
+}
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
+  padding: 0px;
+}
+.ant-dropdown-menu-title-content:hover {
+  background: #ebfaff;
+}
+.ant-dropdown-menu-title-content a {
+  text-decoration: none;
+  color: #0a0226;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 0px;
+  padding: 10px 10px 10px 10px;
+}
+.ant-dropdown-menu-title-content p {
+  padding: 10px;
+  color: #0a0226;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  text-decoration: none;
+  margin-bottom: 0px;
+}
+.ant-modal-body p {
+  color: #808080;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  margin-top: 16px;
+}
+.ant-modal-body img {
+  padding-left: 117px;
+}
+.ant-modal .ant-modal-content {
+  padding: 40px;
+  max-width: 361px;
+  margin: 0 auto;
+}
+.ant-modal .ant-modal-footer {
+  text-align: center;
+  background: transparent;
+  margin-top: 24px;
+}
+.ant-modal .ant-modal-footer .ant-btn + .ant-btn:not(.ant-dropdown-trigger) {
+  margin-bottom: 0;
+  margin-inline-start: 24px;
+}
+.ant-btn-primary {
+  border-radius: 8px;
+  background: var(--linear, linear-gradient(138deg, #01c0fc 0%, #00b1fd 100%));
+  padding: 6px 40px;
+}
+.ant-btn > span {
+  /* color: #fff; */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+.ant-btn {
+  height: 40px;
+  /* color: #fff; */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  border: 1px solid #00b1fd;
 }
