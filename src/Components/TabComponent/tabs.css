@@ -31,6 +31,9 @@
   width: 100%;
   justify-content: space-between;
 }
+.ant-tabs-nav-operations {
+  display: none !important;
+}
 .ant-tabs .ant-tabs-tab {
   padding: 12px 24px;
 }

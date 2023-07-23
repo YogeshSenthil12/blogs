@@ -16,6 +16,7 @@
   border-radius: 8px;
   border: 1px solid #ebebeb;
   background: #fff;
+  /* width: 300px; */
 }
 .ant-picker-time-panel {
   display: none !important;

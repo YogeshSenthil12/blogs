@@ -143,3 +143,41 @@ p {
   border: 1px solid #00b1fd;
   cursor: pointer;
 }
+.ant-form input[type="file"] {
+  display: none;
+}
+.hideImage {
+  display: none;
+}
+/* .showImage {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 8px;
+  border: 1px solid #ebebeb;
+  padding: 8px;
+} */
+.showImage {
+  border-radius: 8px;
+  border: 1px dashed #ebebeb;
+  background: #f5fcff;
+  padding: 16px;
+  text-align: center;
+}
+.showImage img {
+  margin-bottom: 12px;
+  /* width: 100%; */
+}
+.showImage a {
+  color: #1e42ff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+  text-decoration-line: underline;
+}
+.showImage p {
+  color: #a5a5a5;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}

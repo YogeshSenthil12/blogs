@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
-  /* max-width: 1110px; */
+  /* padding: 10px 100px 10px 100px; */
   max-width: 1124px;
   margin: 0 auto;
 }

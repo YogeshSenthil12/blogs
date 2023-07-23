@@ -1,11 +1,27 @@
+import {DatePicker, Select, Form} from "antd";
 import "./filter.css";
-import "react-datepicker/dist/react-datepicker.css";
-import {DatePicker, Select} from "antd";
 
 const {RangePicker} = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
-const Filter = () => {
+const Filter = ({
+  setSelectedCategory,
+  setSelectedAuthor,
+  setSelectedDate,
+  articleData,
+  setFilteredArticleData,
+}) => {
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+  };
+
+  const handleAuthorChange = (value) => {
+    setSelectedAuthor(value);
+  };
+
+  const handleDateChange = (dates) => {
+    setSelectedDate(dates);
+  };
   return (
     <div className="blogPage">
       <div className="filterSec">
@@ -15,22 +31,24 @@ const Filter = () => {
       <div className="filterCard">
         <div className="dateFilter">
           <p>Select Date</p>
-          <div className="datePicker">
+          <Form.Item className="datePicker">
             <RangePicker
               showTime
               placeholder={["StartDate", "EndDate"]}
               format={dateFormat}
-              allowClear={false}
+              allowClear={true}
+              onChange={handleDateChange}
             />
-          </div>
+          </Form.Item>
         </div>
 
         <div className="filterCategory">
           <p>Category</p>
-          <div className="categoryData">
+          <Form.Item className="categoryData">
             <Select
               mode="multiple"
               placeholder="Select Category"
+              onChange={handleCategoryChange}
               options={[
                 {value: "Category 1"},
                 {value: "Category 2"},
@@ -38,14 +56,25 @@ const Filter = () => {
                 {value: "Category 4"},
               ]}
             />
-          </div>
+          </Form.Item>
         </div>
 
         <div className="filterAuthor">
           <p>Author</p>
-          <div className="categoryData">
-            <Select mode="multiple" placeholder="Select Author" />
-          </div>
+          <Form.Item className="categoryData">
+            <Select
+              mode="multiple"
+              placeholder="Select Author"
+              onChange={handleAuthorChange}
+              options={[
+                {value: "Yogesh"},
+                {value: "Vidhyasagar"},
+                {value: "Suraj"},
+                {value: "Naveen"},
+                {value: "asd"},
+              ]}
+            />
+          </Form.Item>
         </div>
       </div>
     </div>

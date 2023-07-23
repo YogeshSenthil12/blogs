@@ -1,36 +1,110 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../Components/Navbar/index";
 import Filter from "../Components/Filter";
-import Tab from "../Components/Tab";
+import TabComponent from "../Components/TabComponent";
 import ArticleCard from "../Components/ArticleCard";
 import "./blogPage.css";
 import {v4 as uuidv4} from "uuid";
+import FormDrawer from "../Components/FormDrawer";
 import moment from "moment";
 
 const BlogPage = () => {
-  const [articleData, setArticleData] = useState([
-    {
-      id: 1,
-      title: "Top 7 Product Feedback Software Tools For 2023",
-      description:
-        "In this review, we'll be revealing the top product feedback software solutions for 2023. Learn what to look for when choose...",
-      category: "Category 1",
-      country: "IN",
-      author: "Bruno Hills",
-      date: new Date(""),
-    },
-  ]);
+  const [articleData, setArticleData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedAuthor, setSelectedAuthor] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [filteredArticleData, setFilteredArticleData] = useState([]);
+  const [formDrawerOpen, setFormDrawerOpen] = useState(false);
+  const [editedArticle, setEditedArticle] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
-  const deleteArticle = (id) => {
-    const updatedData = articleData.filter((article) => article.id !== id);
-    setArticleData(updatedData);
+  const openFormDrawer = () => {
+    setFormDrawerOpen(true);
   };
 
-  const addArticle = (newArticle) => {
-    const id = uuidv4();
-    newArticle.id = id;
-    setArticleData([...articleData, newArticle]);
-    console.log("Generated ID:", id);
+  const handleEdit = (article) => {
+    setEditedArticle(article);
+    setIsEditMode(true);
+    openFormDrawer();
+  };
+
+  useEffect(() => {
+    fetchArticleData();
+  }, []);
+
+  useEffect(() => {
+    const filteredData = articleData.filter((article) => {
+      const isCategoryMatched =
+        selectedCategory.length === 0 ||
+        selectedCategory.every((selectedCategory) =>
+          article.category.includes(selectedCategory)
+        );
+
+      const isAuthorMatched =
+        selectedAuthor.length === 0 || selectedAuthor.includes(article.author);
+
+      const isDateMatched =
+        !selectedDate ||
+        (selectedDate[0]?.$d &&
+          selectedDate[1]?.$d &&
+          moment(article.date).isBetween(
+            moment(selectedDate[0].$d).startOf("day"),
+            moment(selectedDate[1].$d).endOf("day")
+          ));
+
+      return isCategoryMatched && isAuthorMatched && isDateMatched;
+    });
+
+    setFilteredArticleData(filteredData);
+    setSelectedCountry(selectedCountry);
+  }, [
+    selectedCategory,
+    selectedAuthor,
+    selectedDate,
+    selectedCountry,
+    articleData,
+  ]);
+
+  const fetchArticleData = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/articleData");
+      const data = await response.json();
+      setArticleData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteArticle = async (id) => {
+    try {
+      await fetch(`http://localhost:3001/articleData/${id}`, {
+        method: "DELETE",
+      });
+      const updatedData = articleData.filter((article) => article.id !== id);
+      setArticleData(updatedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addArticle = async (newArticle) => {
+    try {
+      newArticle.id = uuidv4();
+      newArticle.date = new Date(); // Set the date property
+      const response = await fetch("http://localhost:3001/articleData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newArticle),
+      });
+      const data = await response.json();
+      const updatedData = [...articleData, data];
+      setArticleData(updatedData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -42,19 +116,43 @@ const BlogPage = () => {
       <div className="parentSection">
         <div className="filterTab">
           <div>
-            <Filter />
-          </div>
-          <div className="addArticle">
-            <Tab addArticle={addArticle} />
-            <ArticleCard
-              articleData={articleData.map((article) => ({
-                ...article,
-                date: moment(article.date).format("MMM DD YYYY"),
-              }))}
-              setArticleData={setArticleData}
-              deleteArticle={deleteArticle}
+            <Filter
+              setSelectedCategory={setSelectedCategory}
+              setSelectedAuthor={setSelectedAuthor}
+              setSelectedDate={setSelectedDate}
+              setSelectedCountry={setSelectedCountry}
+              articleData={articleData}
+              setFilteredArticleData={setFilteredArticleData}
             />
           </div>
+          <div className="addArticle">
+            <TabComponent
+              addArticle={addArticle}
+              articleData={articleData}
+              setSelectedCountry={setSelectedCountry}
+              filteredArticleData={filteredArticleData}
+              openFormDrawer={openFormDrawer}
+            />
+            <ArticleCard
+              articleData={filteredArticleData}
+              setArticleData={setArticleData}
+              deleteArticle={deleteArticle}
+              addArticle={addArticle}
+              selectedCountry={selectedCountry}
+              handleEdit={handleEdit}
+            />
+          </div>
+          {formDrawerOpen && (
+            <FormDrawer
+              open={formDrawerOpen}
+              onClose={() => setFormDrawerOpen(false)}
+              addArticle={addArticle}
+              initialData={editedArticle}
+              setIsEditMode={setIsEditMode}
+              setEditedArticle={setEditedArticle}
+              setArticleData={setArticleData}
+            />
+          )}
         </div>
       </div>
     </div>
