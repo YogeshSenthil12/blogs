@@ -63,7 +63,6 @@ const BlogPage = () => {
             moment(selectedDate[1].$d).endOf("day")
           ));
 
-     
       return isCategoryMatched && isAuthorMatched && isDateMatched;
     });
 
@@ -84,7 +83,9 @@ const BlogPage = () => {
 
   const fetchArticleData = async () => {
     try {
-      const response = await fetch("http://localhost:3001/articleData");
+      const response = await fetch(
+        "https://blog-pages.onrender.com/articleData"
+      );
       const data = await response.json();
       setArticleData(data);
       const uniqueAuthors = [...new Set(data.map((article) => article.author))];
@@ -96,7 +97,7 @@ const BlogPage = () => {
 
   const deleteArticle = async (id) => {
     try {
-      await fetch(`http://localhost:3001/articleData/${id}`, {
+      await fetch(`https://blog-pages.onrender.com/articleData/${id}`, {
         method: "DELETE",
       });
       const updatedData = articleData.filter((article) => article.id !== id);
@@ -110,13 +111,16 @@ const BlogPage = () => {
     try {
       newArticle.id = uuidv4();
       newArticle.date = new Date();
-      const response = await fetch("http://localhost:3001/articleData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newArticle),
-      });
+      const response = await fetch(
+        "https://blog-pages.onrender.com/articleData",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newArticle),
+        }
+      );
       const data = await response.json();
       const updatedData = [...articleData, data];
       setArticleData(updatedData);

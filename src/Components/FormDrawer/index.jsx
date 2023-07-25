@@ -92,7 +92,7 @@ const FormDrawer = ({
   const updateArticle = async (updatedArticle) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/articleData/${updatedArticle.id}`,
+        `https://blog-pages.onrender.com/articleData/${updatedArticle.id}`,
         {
           method: "PATCH",
           headers: {
