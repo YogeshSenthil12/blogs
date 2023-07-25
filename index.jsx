@@ -31,7 +31,7 @@ const ArticleCard = ({articleData, setArticleData, deleteArticle}) => {
         setArticleData(updatedData);
         setDeleteId(null);
       } catch (error) {
-        console.log("Error deleting article:", error);
+        setErrorMessage("Error deleting article:", error);
       }
     }
   };

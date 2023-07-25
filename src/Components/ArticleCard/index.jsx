@@ -21,13 +21,14 @@ const ArticleCard = ({
   setArticleData,
   deleteArticle,
   selectedCountry,
+  setErrorMessage,
   handleEdit,
+  
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
   const handleOk = async () => {
-    setIsModalOpen(false);
     if (deleteId !== null) {
       try {
         await deleteArticle(deleteId);
@@ -36,8 +37,9 @@ const ArticleCard = ({
         );
         setArticleData(updatedData);
         setDeleteId(null);
+        setIsModalOpen(false);
       } catch (error) {
-        console.log(error);
+        setErrorMessage(error);
       }
     }
   };
@@ -65,11 +67,14 @@ const ArticleCard = ({
 
       {filteredArticleData.length > 0 ? (
         filteredArticleData?.map((article) => {
-          const imageURL = article.image;
           return (
             <div key={article.id} className="articleBlog">
               <div className="blogImages">
-                <img src={imageURL} alt="Blog" className="blogCardDetails" />
+                <img
+                  src={article.image}
+                  alt="Blog"
+                  className="blogCardDetails"
+                />
                 <div className="countryLogo">
                   <div>
                     <img src={countryFlags[article.country]} alt="Flag" />

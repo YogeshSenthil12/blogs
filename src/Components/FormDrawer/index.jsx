@@ -14,6 +14,7 @@ const FormDrawer = ({
   setArticleData,
   showImageBox,
   setShowImageBox,
+  setErrorMessage,
 }) => {
   const [image, setImage] = useState("");
   const [imageName, setImageName] = useState("");
@@ -84,7 +85,7 @@ const FormDrawer = ({
       setImageName(e.target.files[0].name);
     };
     reader.onerror = function (error) {
-      console.log("Error: ", error);
+      setErrorMessage("Error: ", error);
     };
   };
 
@@ -107,7 +108,7 @@ const FormDrawer = ({
         )
       );
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
     }
   };
   return (

@@ -20,6 +20,7 @@ const BlogPage = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showImageBox, setShowImageBox] = useState(true);
   const [authorOptions, setAuthorOptions] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const openFormDrawer = () => {
     setFormDrawerOpen(true);
@@ -62,6 +63,7 @@ const BlogPage = () => {
             moment(selectedDate[1].$d).endOf("day")
           ));
 
+     
       return isCategoryMatched && isAuthorMatched && isDateMatched;
     });
 
@@ -88,7 +90,7 @@ const BlogPage = () => {
       const uniqueAuthors = [...new Set(data.map((article) => article.author))];
       setSelectedAuthor(uniqueAuthors);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
     }
   };
 
@@ -100,7 +102,7 @@ const BlogPage = () => {
       const updatedData = articleData.filter((article) => article.id !== id);
       setArticleData(updatedData);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
     }
   };
 
@@ -119,7 +121,7 @@ const BlogPage = () => {
       const updatedData = [...articleData, data];
       setArticleData(updatedData);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
     }
   };
 
@@ -152,6 +154,7 @@ const BlogPage = () => {
               deleteArticle={deleteArticle}
               selectedCountry={selectedCountry}
               handleEdit={handleEdit}
+              setErrorMessage={setErrorMessage}
             />
           </div>
           {formDrawerOpen && (
@@ -165,6 +168,7 @@ const BlogPage = () => {
               setArticleData={setArticleData}
               showImageBox={showImageBox}
               setShowImageBox={setShowImageBox}
+              setErrorMessage={setErrorMessage}
             />
           )}
         </div>
