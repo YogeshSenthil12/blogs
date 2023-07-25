@@ -18,9 +18,18 @@ const BlogPage = () => {
   const [formDrawerOpen, setFormDrawerOpen] = useState(false);
   const [editedArticle, setEditedArticle] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [showImageBox, setShowImageBox] = useState(true);
+  const [authorOptions, setAuthorOptions] = useState([]);
 
   const openFormDrawer = () => {
     setFormDrawerOpen(true);
+  };
+
+  const closeFormDrawer = () => {
+    setFormDrawerOpen(false);
+    setIsEditMode(false);
+    setEditedArticle(null);
+    setShowImageBox(true);
   };
 
   const handleEdit = (article) => {
@@ -66,11 +75,18 @@ const BlogPage = () => {
     articleData,
   ]);
 
+  useEffect(() => {
+    const authors = [...new Set(articleData.map((article) => article.author))];
+    setAuthorOptions(authors);
+  }, [articleData]);
+
   const fetchArticleData = async () => {
     try {
       const response = await fetch("http://localhost:3001/articleData");
       const data = await response.json();
       setArticleData(data);
+      const uniqueAuthors = [...new Set(data.map((article) => article.author))];
+      setSelectedAuthor(uniqueAuthors);
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +107,7 @@ const BlogPage = () => {
   const addArticle = async (newArticle) => {
     try {
       newArticle.id = uuidv4();
-      newArticle.date = new Date(); // Set the date property
+      newArticle.date = new Date();
       const response = await fetch("http://localhost:3001/articleData", {
         method: "POST",
         headers: {
@@ -120,15 +136,12 @@ const BlogPage = () => {
               setSelectedCategory={setSelectedCategory}
               setSelectedAuthor={setSelectedAuthor}
               setSelectedDate={setSelectedDate}
-              setSelectedCountry={setSelectedCountry}
-              articleData={articleData}
-              setFilteredArticleData={setFilteredArticleData}
+              authorOptions={authorOptions}
+              setAuthorOptions={setAuthorOptions}
             />
           </div>
           <div className="addArticle">
             <TabComponent
-              addArticle={addArticle}
-              articleData={articleData}
               setSelectedCountry={setSelectedCountry}
               filteredArticleData={filteredArticleData}
               openFormDrawer={openFormDrawer}
@@ -137,7 +150,6 @@ const BlogPage = () => {
               articleData={filteredArticleData}
               setArticleData={setArticleData}
               deleteArticle={deleteArticle}
-              addArticle={addArticle}
               selectedCountry={selectedCountry}
               handleEdit={handleEdit}
             />
@@ -145,12 +157,14 @@ const BlogPage = () => {
           {formDrawerOpen && (
             <FormDrawer
               open={formDrawerOpen}
-              onClose={() => setFormDrawerOpen(false)}
+              onClose={closeFormDrawer}
               addArticle={addArticle}
               initialData={editedArticle}
               setIsEditMode={setIsEditMode}
-              setEditedArticle={setEditedArticle}
+              isEditMode={isEditMode}
               setArticleData={setArticleData}
+              showImageBox={showImageBox}
+              setShowImageBox={setShowImageBox}
             />
           )}
         </div>

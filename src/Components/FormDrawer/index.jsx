@@ -4,19 +4,35 @@ import "./form.css";
 import Image from "../../assets/images/image.svg";
 import Close from "../../assets/images/close.svg";
 
-const FormDrawer = ({open, onClose, addArticle, initialData}) => {
+const FormDrawer = ({
+  open,
+  onClose,
+  addArticle,
+  isEditMode,
+  setIsEditMode,
+  initialData,
+  setArticleData,
+  showImageBox,
+  setShowImageBox,
+}) => {
   const [image, setImage] = useState("");
   const [imageName, setImageName] = useState("");
   const [form] = Form.useForm();
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [showImageBox, setShowImageBox] = useState(true);
+  const [imageError, setImageError] = useState(false);
 
   const inputRef = useRef();
+
+  const handleImageClose = () => {
+    setImage("");
+    setImageName("");
+    setShowImageBox(true);
+  };
+
   const uploadImage = () => {
-    console.log("log", uploadImage);
     setShowImageBox(false);
     inputRef.current.click();
   };
+
   useEffect(() => {
     if (initialData) {
       setIsEditMode(true);
@@ -26,15 +42,25 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
         description: initialData.description,
         author: initialData.author,
         category: initialData.category,
-        // image: initialData.imageData,
+        imageName: initialData.imageName,
       });
+      if (initialData.image) {
+        setImage(initialData.image);
+        setImageName(initialData.imageName);
+        setShowImageBox(false);
+      } else {
+        setShowImageBox(true);
+      }
     } else {
-      setIsEditMode(false);
-      form.resetFields();
+      setShowImageBox(true);
     }
   }, [open, initialData, form]);
 
   const onFinish = (values) => {
+    if (!image) {
+      setImageError(true);
+      return;
+    }
     const newArticle = {
       ...values,
       image,
@@ -56,7 +82,6 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
     reader.onload = function () {
       setImage(reader.result);
       setImageName(e.target.files[0].name);
-      console.log("EEEEE", e.target.files[0]);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -75,8 +100,12 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
           body: JSON.stringify(updatedArticle),
         }
       );
-      const getData = await response.json();
-      console.log("Data received from API:", getData);
+      const data = await response.json();
+      setArticleData((prevArticleData) =>
+        prevArticleData.map((article) =>
+          article.id === data.id ? data : article
+        )
+      );
     } catch (error) {
       console.log(error);
     }
@@ -120,7 +149,6 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
                 placeholder="Select Country"
                 className="formSelect"
                 options={[
-                  {value: "All", label: "All"},
                   {value: "IN", label: "India"},
                   {value: "ID", label: "Indonesia"},
                   {value: "DE", label: "Germany"},
@@ -152,28 +180,34 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
             label="Article Image"
             name="image"
             initialValue={Image}
+            validateStatus={imageError ? "error" : image ? "success" : ""}
+            help={imageError ? "Please upload an image" : ""}
             rules={[
               {
                 required: true,
-                messages: "Please Upload an Image",
+                message: "Please upload an image",
               },
             ]}
+            allowClear
           >
             <div className={showImageBox ? "hideImage" : "showImage"}>
-              <img src={Image} />
-              <p>{imageName}</p>
-              {/* <img src={Close} /> */}
-            </div>
-
-            <div className="dragAndDropImg">
-              <div
-                onClick={uploadImage}
-                className={showImageBox ? "showImage" : "hideImage"}
-              >
-                <img src={Image} alt="image" />
-                <a>Browse Here</a>
-                <p>Supports: JPG,JPEG, PNG</p>
+              <div className="boxImage">
+                <div className="imageBox">
+                  <img src={Image} />
+                  <p>{imageName}</p>
+                </div>
+                <div className="closeIcon">
+                  <img src={Close} onClick={handleImageClose} />
+                </div>
               </div>
+            </div>
+            <div
+              onClick={uploadImage}
+              className={showImageBox ? "showImage" : "hideImage"}
+            >
+              <img src={Image} alt="image" />
+              <a>Browse Here</a>
+              <p>Supports: JPG,JPEG, PNG</p>
             </div>
 
             <input
@@ -181,7 +215,7 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
               className="uploadingImg"
               onChange={handleImage}
               ref={inputRef}
-            ></input>
+            />
           </Form.Item>
         </div>
 
@@ -195,7 +229,11 @@ const FormDrawer = ({open, onClose, addArticle, initialData}) => {
             },
           ]}
         >
-          <Input className="textField" placeholder="Enter author name" />
+          <Input
+            className="textField"
+            placeholder="Enter author name"
+            // onChange={handleAuthorChange}
+          />
         </Form.Item>
 
         <div className="formFilterCategory">

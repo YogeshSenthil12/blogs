@@ -8,20 +8,25 @@ const Filter = ({
   setSelectedCategory,
   setSelectedAuthor,
   setSelectedDate,
-  articleData,
-  setFilteredArticleData,
+  authorOptions,
+  setAuthorOptions,
 }) => {
+
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };
 
   const handleAuthorChange = (value) => {
     setSelectedAuthor(value);
+    if (value.length === 0) {
+      setAuthorOptions(authorOptions);
+    }
   };
 
   const handleDateChange = (dates) => {
     setSelectedDate(dates);
   };
+
   return (
     <div className="blogPage">
       <div className="filterSec">
@@ -66,13 +71,11 @@ const Filter = ({
               mode="multiple"
               placeholder="Select Author"
               onChange={handleAuthorChange}
-              options={[
-                {value: "Yogesh"},
-                {value: "Vidhyasagar"},
-                {value: "Suraj"},
-                {value: "Naveen"},
-                {value: "asd"},
-              ]}
+              options={authorOptions.map((author) => ({
+                value: author,
+                label: author,
+              }))}
+              showSearch={true}
             />
           </Form.Item>
         </div>

@@ -61,7 +61,7 @@ textarea:where(.css-dev-only-do-not-override-14wwjjs).ant-input {
 .textArea {
   resize: none;
   padding: 16px;
-  color: #a5a5a5;
+  color: #000000;
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
@@ -99,6 +99,7 @@ p {
   font-weight: 400;
   line-height: 18px;
 }
+
 .formFilterCategory p {
   color: #808080;
   font-size: 16px;
@@ -149,24 +150,14 @@ p {
 .hideImage {
   display: none;
 }
-/* .showImage {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border-radius: 8px;
-  border: 1px solid #ebebeb;
-  padding: 8px;
-} */
 .showImage {
   border-radius: 8px;
   border: 1px dashed #ebebeb;
   background: #f5fcff;
-  padding: 16px;
   text-align: center;
 }
 .showImage img {
-  margin-bottom: 12px;
-  /* width: 100%; */
+  margin: 16px 0px 12px 0px;
 }
 .showImage a {
   color: #1e42ff;
@@ -179,5 +170,31 @@ p {
   color: #a5a5a5;
   font-size: 12px;
   font-weight: 400;
+  margin: 0px 0px 16px 0px;
   line-height: 18px;
+}
+.closeIcon img {
+  width: 140%;
+  cursor: pointer;
+}
+.boxImage {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #ebebeb;
+  gap: 16px;
+  align-items: center;
+  padding: 8px;
+}
+.imageBox {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+.imageBox p {
+  margin: 0px;
+}
+.boxImage img {
+  margin: 0px;
 }

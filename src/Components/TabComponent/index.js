@@ -1,16 +1,13 @@
 import React, {useState} from "react";
 import {Tabs} from "antd";
-import FormDrawer from "../FormDrawer";
 import plusIcon from "../../assets/images/plusIcon.svg";
 import "./tabs.css";
 
 const {TabPane} = Tabs;
 
 const TabComponent = ({
-  addArticle,
   setSelectedCountry,
   filteredArticleData,
-  handleEdit,
   openFormDrawer,
 }) => {
   const [activeTab, setActiveTab] = useState("1");

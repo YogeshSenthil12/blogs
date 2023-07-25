@@ -6,7 +6,7 @@ import dottedIcon from "../../assets/images/dottedIcon.svg";
 import author from "../../assets/images/author.svg";
 
 import React, {useState} from "react";
-import {Dropdown, Modal} from "antd";
+import {Dropdown, Modal, Popover} from "antd";
 import "./article.css";
 import moment from "moment";
 
@@ -52,6 +52,10 @@ const ArticleCard = ({
     setDeleteId(id);
   };
 
+  const filteredArticleData = selectedCountry
+    ? articleData.filter((article) => article.country === selectedCountry)
+    : articleData;
+
   return (
     <section className="blogWebsite">
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
@@ -59,11 +63,8 @@ const ArticleCard = ({
         <p>Are you sure you want to delete?</p>
       </Modal>
 
-      {articleData.length > 0 ? (
-        articleData?.map((article) => {
-          if (selectedCountry && article.country !== selectedCountry) {
-            return null;
-          }
+      {filteredArticleData.length > 0 ? (
+        filteredArticleData?.map((article) => {
           const imageURL = article.image;
           return (
             <div key={article.id} className="articleBlog">
@@ -118,13 +119,29 @@ const ArticleCard = ({
                         }
                         return (
                           <div key={category}>
-                            <p>
-                              {i < 2
-                                ? category
-                                : article.category.length > 2
-                                ? `+${article.category.length - 2}`
-                                : category}
-                            </p>
+                            {i < 2 ? (
+                              <p>{category}</p>
+                            ) : (
+                              <Popover
+                                content={
+                                  <p
+                                    style={{
+                                      color: "#0a0226",
+                                      fontSize: "12px",
+                                      fontFamily: "Inter",
+                                    }}
+                                  >
+                                    {article.category.slice(2).join(", ")}
+                                  </p>
+                                }
+                              >
+                                <p>
+                                  {article.category.length > 2
+                                    ? `+${article.category.length - 2}`
+                                    : category}
+                                </p>
+                              </Popover>
+                            )}
                           </div>
                         );
                       })}
@@ -149,7 +166,11 @@ const ArticleCard = ({
           );
         })
       ) : (
-        <p className="noCards">No data to show</p>
+        <p className="noCards">
+          {selectedCountry
+            ? `No data availabe for ${selectedCountry}`
+            : "No data is available to show"}
+        </p>
       )}
     </section>
   );
