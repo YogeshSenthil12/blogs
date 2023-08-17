@@ -1,17 +1,22 @@
+import {useContext} from "react";
+import BlogContext from "../../context/BlogContext";
+
 import {DatePicker, Select, Form} from "antd";
 import "./filter.css";
 
 const {RangePicker} = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
-const Filter = ({
-  setSelectedCategory,
-  setSelectedAuthor,
-  setSelectedDate,
-  authorOptions,
-  setAuthorOptions,
-}) => {
+const Filter = ({}) => {
 
+  const {
+    setSelectedCategory,
+    setSelectedAuthor,
+    setSelectedDate,
+    authorOptions,
+    setAuthorOptions,
+  } = useContext(BlogContext);
+  
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };

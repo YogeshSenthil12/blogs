@@ -1,11 +1,14 @@
-import BlogPage from "./Containers/BlogPage"
+import BlogPage from "./Containers/BlogPage";
+import {BlogProvider} from "./context/BlogContext";
 
 const App = () => {
   return (
     <div>
-      <BlogPage />
+      <BlogProvider>
+        <BlogPage />
+      </BlogProvider>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,21 +1,24 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
 import {Drawer, Select, Form, Input, Button} from "antd";
 import "./form.css";
 import Image from "../../assets/images/image.svg";
 import Close from "../../assets/images/close.svg";
+import BlogContext from "../../context/BlogContext";
 
-const FormDrawer = ({
-  open,
-  onClose,
-  addArticle,
-  isEditMode,
-  setIsEditMode,
-  initialData,
-  setArticleData,
-  showImageBox,
-  setShowImageBox,
-  setErrorMessage,
-}) => {
+const FormDrawer = ({}) => {
+  const {
+    formDrawerOpen,
+    closeFormDrawer,
+    addArticle,
+    isEditMode,
+    setIsEditMode,
+    editedArticle,
+    setArticleData,
+    showImageBox,
+    setShowImageBox,
+    setErrorMessage,
+  } = useContext(BlogContext);
+  
   const [image, setImage] = useState("");
   const [imageName, setImageName] = useState("");
   const [form] = Form.useForm();
@@ -35,19 +38,19 @@ const FormDrawer = ({
   };
 
   useEffect(() => {
-    if (initialData) {
+    if (editedArticle) {
       setIsEditMode(true);
       form.setFieldsValue({
-        title: initialData.title,
-        country: initialData.country,
-        description: initialData.description,
-        author: initialData.author,
-        category: initialData.category,
-        imageName: initialData.imageName,
+        title: editedArticle.title,
+        country: editedArticle.country,
+        description: editedArticle.description,
+        author: editedArticle.author,
+        category: editedArticle.category,
+        imageName: editedArticle.imageName,
       });
-      if (initialData.image) {
-        setImage(initialData.image);
-        setImageName(initialData.imageName);
+      if (editedArticle.image) {
+        setImage(editedArticle.image);
+        setImageName(editedArticle.imageName);
         setShowImageBox(false);
       } else {
         setShowImageBox(true);
@@ -55,7 +58,7 @@ const FormDrawer = ({
     } else {
       setShowImageBox(true);
     }
-  }, [open, initialData, form]);
+  }, [formDrawerOpen, editedArticle, form]);
 
   const onFinish = (values) => {
     if (!image) {
@@ -69,12 +72,12 @@ const FormDrawer = ({
       imageName,
     };
     if (isEditMode) {
-      newArticle.id = initialData.id;
+      newArticle.id = editedArticle.id;
       updateArticle(newArticle);
     } else {
       addArticle(newArticle);
     }
-    onClose();
+    closeFormDrawer();
   };
 
   const handleImage = (e) => {
@@ -115,8 +118,8 @@ const FormDrawer = ({
     <Drawer
       title={isEditMode ? "Edit Article" : "Add New Article"}
       placement="right"
-      open={open}
-      onClose={onClose}
+      visible={formDrawerOpen}
+      onClose={closeFormDrawer}
       className="custom-drawer"
     >
       <Form className="formDetails" onFinish={onFinish} form={form}>
@@ -264,7 +267,7 @@ const FormDrawer = ({
           </div>
           <div className="formButton">
             <div>
-              <Button className="cancelButton" onClick={onClose}>
+              <Button className="cancelButton" onClick={closeFormDrawer}>
                 Cancel
               </Button>
             </div>

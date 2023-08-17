@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import {useContext, useState} from "react";
+import BlogContext from "../../context/BlogContext";
+
 import {Tabs} from "antd";
 import plusIcon from "../../assets/images/plusIcon.svg";
 import "./tabs.css";
 
 const {TabPane} = Tabs;
 
-const TabComponent = ({
-  setSelectedCountry,
-  filteredArticleData,
-  openFormDrawer,
-}) => {
+const TabComponent = () => {
+  const {setSelectedCountry, filteredArticleData, openFormDrawer} =
+    useContext(BlogContext);
+
   const [activeTab, setActiveTab] = useState("1");
 
   const handleTabChange = (key) => {
@@ -21,6 +22,7 @@ const TabComponent = ({
       setSelectedCountry(countries[key - 2]);
     }
   };
+
   const totalBlogcard = (country) => {
     if (country) {
       const filterData = filteredArticleData.filter(

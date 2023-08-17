@@ -1,3 +1,6 @@
+import {useContext} from "react";
+import BlogContext from "../../context/BlogContext";
+
 import flagIndia from "../../assets/images/flagIndia.svg";
 import flagGermany from "../../assets/images/flagGermany.svg";
 import flagIndonesia from "../../assets/images/flagIndonesia.svg";
@@ -16,15 +19,16 @@ const countryFlags = {
   ID: flagIndonesia,
 };
 
-const ArticleCard = ({
-  articleData,
-  setArticleData,
-  deleteArticle,
-  selectedCountry,
-  setErrorMessage,
-  handleEdit,
-  
-}) => {
+const ArticleCard = () => {
+  const {
+    filteredArticleData,
+    setArticleData,
+    deleteArticle,
+    selectedCountry,
+    setErrorMessage,
+    handleEdit,
+  } = useContext(BlogContext);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
@@ -32,7 +36,7 @@ const ArticleCard = ({
     if (deleteId !== null) {
       try {
         await deleteArticle(deleteId);
-        const updatedData = articleData.filter(
+        const updatedData = filteredArticleData.filter(
           (article) => article.id !== deleteId
         );
         setArticleData(updatedData);
@@ -54,9 +58,9 @@ const ArticleCard = ({
     setDeleteId(id);
   };
 
-  const filteredArticleData = selectedCountry
-    ? articleData.filter((article) => article.country === selectedCountry)
-    : articleData;
+  const filteredArticlesData = selectedCountry
+    ? filteredArticleData.filter((article) => article.country === selectedCountry)
+    : filteredArticleData;
 
   return (
     <section className="blogWebsite">
@@ -65,8 +69,8 @@ const ArticleCard = ({
         <p>Are you sure you want to delete?</p>
       </Modal>
 
-      {filteredArticleData.length > 0 ? (
-        filteredArticleData?.map((article) => {
+      {filteredArticlesData.length > 0 ? (
+        filteredArticlesData?.map((article) => {
           return (
             <div key={article.id} className="articleBlog">
               <div className="blogImages">
