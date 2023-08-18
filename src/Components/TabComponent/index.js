@@ -5,7 +5,7 @@ import {Tabs} from "antd";
 import plusIcon from "../../assets/images/plusIcon.svg";
 import "./tabs.css";
 
-const {TabPane} = Tabs;
+const {TabPane} = Tabs
 
 const TabComponent = () => {
   const {setSelectedCountry, filteredArticleData, openFormDrawer} =
@@ -15,12 +15,13 @@ const TabComponent = () => {
 
   const handleTabChange = (key) => {
     setActiveTab(key);
-    if (key === "1") {
-      setSelectedCountry(null);
-    } else {
-      const countries = ["DE", "IN", "ID"];
-      setSelectedCountry(countries[key - 2]);
-    }
+    
+    // if (key === "1") {
+    //   setSelectedCountry(null);
+    // } else {
+    //   const countries = ["DE", "IN", "ID"];
+    //   setSelectedCountry(countries[key - 2]);
+    // }
   };
 
   const totalBlogcard = (country) => {

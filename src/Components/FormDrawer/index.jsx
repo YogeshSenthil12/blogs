@@ -5,7 +5,7 @@ import Image from "../../assets/images/image.svg";
 import Close from "../../assets/images/close.svg";
 import BlogContext from "../../context/BlogContext";
 
-const FormDrawer = ({}) => {
+const FormDrawer = () => {
   const {
     formDrawerOpen,
     closeFormDrawer,
@@ -18,7 +18,7 @@ const FormDrawer = ({}) => {
     setShowImageBox,
     setErrorMessage,
   } = useContext(BlogContext);
-  
+
   const [image, setImage] = useState("");
   const [imageName, setImageName] = useState("");
   const [form] = Form.useForm();

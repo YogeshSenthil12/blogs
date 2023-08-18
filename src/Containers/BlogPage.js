@@ -6,6 +6,7 @@ import "./blogPage.css";
 import FormDrawer from "../Components/FormDrawer";
 
 const BlogPage = () => {
+  
   return (
     <div className="fixDesign">
       <NavBar />

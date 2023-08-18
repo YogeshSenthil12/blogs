@@ -7,8 +7,7 @@ import "./filter.css";
 const {RangePicker} = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
-const Filter = ({}) => {
-
+const Filter = () => {
   const {
     setSelectedCategory,
     setSelectedAuthor,
@@ -16,7 +15,7 @@ const Filter = ({}) => {
     authorOptions,
     setAuthorOptions,
   } = useContext(BlogContext);
-  
+
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
   };

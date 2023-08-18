@@ -59,7 +59,9 @@ const ArticleCard = () => {
   };
 
   const filteredArticlesData = selectedCountry
-    ? filteredArticleData.filter((article) => article.country === selectedCountry)
+    ? filteredArticleData.filter(
+        (article) => article.country === selectedCountry
+      )
     : filteredArticleData;
 
   return (
